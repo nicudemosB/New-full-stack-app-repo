@@ -60,7 +60,10 @@ app.get('/racers', (req, res) => {
 });
 //___________________
 //localhost:3000
-
+//localhost:3000
+app.get('/' , (req, res) => {
+    res.send('Hello World!');
+  });
 //___________________
 //Listener
 //___________________
