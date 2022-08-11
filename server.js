@@ -7,6 +7,8 @@ const mongoose = require ('mongoose');
 const app = express ();
 const db = mongoose.connection;
 require('dotenv').config()
+const Track = require('./models/trackSchema.js')
+
 //___________________
 //Port
 //___________________
@@ -45,13 +47,26 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
 //___________________
 // Routes
+// Track.create(data, (err, data ) => {
+//     console.log('Added track data successfully');
+// })
+
+
+app.get('/racers', (req, res) => {
+    Track.find({}, (err, allRacers) => {
+        res.render('index.ejs', {cars: allRacers});
+
+    })
+});
 //___________________
 //localhost:3000
-app.get('/' , (req, res) => {
-  res.send('Hello World!');
-});
 
 //___________________
 //Listener
 //___________________
-app.listen(PORT, () => console.log( 'Listening on port:', PORT));
+app.listen(3000, () => 
+    console.log( 'Listening on port:', 3000));
+
+    mongoose.connect('mongodb://127.0.0.1:27017/trackDay', () => {
+        console.log('connection to mongodb established');
+    })
