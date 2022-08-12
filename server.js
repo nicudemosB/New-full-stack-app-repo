@@ -8,6 +8,7 @@ const app = express ();
 const db = mongoose.connection;
 require('dotenv').config()
 const Track = require('./models/trackSchema.js')
+const Data = require('./models/trackData.js')
 
 //___________________
 //Port
@@ -47,23 +48,58 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
 //___________________
 // Routes
-// Track.create(data, (err, data ) => {
+// Track.create(Data, (err, data ) => {
 //     console.log('Added track data successfully');
 // })
-
+// 
 
 app.get('/racers', (req, res) => {
     Track.find({}, (err, allRacers) => {
         res.render('index.ejs', {cars: allRacers});
-
+    // res.send('track day')
     })
 });
+
+app.get('/racers/new', (req, res) => {
+    res.render('new.ejs')
+})
+
+app.get('/racers/edit', (req, res) => {
+    res.render('edit.ejs')
+})
+
+app.post('/racers', (req, res) => {
+    Track.create (req.body, (err, createdRacer) => {
+        res.redirect('/racers/edit')
+
+    })
+})
+
+app.get('/racers/show', (req, res) => {
+    res.render('show.ejs ')
+    Track.find({}, (err, allRacers) => {
+        res.render('show.ejs', {racers: allRacers})
+    })
+})
+
+
+// app.get('/cars/:id', (req, res) => {
+//     Track.findById(req.params.id, (err, foundRacer) => {
+//         res.render('show.ejs', {racers:foundRacer})
+//     })
+// })
+
+// app.get('/racers/:id/edit', (req, red) => {
+//     Track.findById(req.params.id, (err, editTrack) => {
+//         res.render('edit.ejs', {racers: editTrack})
+//     })
+// })
 //___________________
 //localhost:3000
 //localhost:3000
-app.get('/' , (req, res) => {
-    res.send('Hello World!');
-  });
+// app.get('/' , (req, res) => {
+//     res.send('Hello World!');
+//   });
 //___________________
 //Listener
 //___________________
