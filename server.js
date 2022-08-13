@@ -68,19 +68,37 @@ app.get('/racers/edit', (req, res) => {
     res.render('edit.ejs')
 })
 
-app.post('/racers', (req, res) => {
+app.get('/racers/:id', (req, res) => {
+    Track.findById(req.params.id, (err,foundRacers) => {
+        res.render('show.ejs', {racers: foundRacers})
+        
+    })
+})
+
+
+app.get('/racers/show', (req,res) => {
+    res.render('show.ejs')
+})
+
+app.post('/racers/show', (req, res) => {
     Track.create (req.body, (err, createdRacer) => {
-        res.redirect('/racers/edit')
+        res.redirect('edit.ejs')
 
     })
 })
 
-app.get('/racers/show', (req, res) => {
-    res.render('show.ejs ')
-    Track.find({}, (err, allRacers) => {
-        res.render('show.ejs', {racers: allRacers})
-    })
-})
+// app.put('/racers/:id', (req, res) => {
+//     Track.findByIdAndUpdate(req.params.id, req.body, {new: true},( err, updateName) => {
+//         res.redirect('/show')
+//     })
+// })
+
+// app.get('/racers/show', (req, res) => {
+//     res.render('show.ejs ')
+//     Track.find({}, (err, allRacers) => {
+//         res.render('show.ejs', {racers: allRacers})
+//     })
+// })
 
 
 // app.get('/cars/:id', (req, res) => {
