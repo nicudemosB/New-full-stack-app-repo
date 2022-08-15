@@ -49,27 +49,27 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 //___________________
 // Routes
 // welcome page
-app.get('/', (req, res) => {
-    res.render('welcome.ejs')
-     })
 
+app.get('/', (req, res) => {
+    res.send('welcome.ejs')
+     })
 //      // seed route
 // app.get('/seed', (req, res) => {
-//     Track.create(Data, (err, data ) => {
-//         res.redirect('/racers')
-//         console.log('Added track data successfully');
-//     })
-// })
-// // delete route
-// app.delete('/racers/:id', (req, res) => {
-//     Track.findByIdAndRemove(req.params.id, (err, racers) => {
-//         res.redirect('/racers')
-//     })
-//     // res.send('deleting...')
-// })
-
-    
-//  // edit route 
+    //     Track.create(Data, (err, data ) => {
+        //         res.redirect('/racers')
+        //         console.log('Added track data successfully');
+        //     })
+        // })
+        // // delete route
+        // app.delete('/racers/:id', (req, res) => {
+            //     Track.findByIdAndRemove(req.params.id, (err, racers) => {
+                //         res.redirect('/racers')
+                //     })
+                //     // res.send('deleting...')
+                // })
+                
+                
+                //  // edit route 
 // app.get('/racers/:id/edit', (req, res) => {
 //     Track.findById(req.params.id, (err, foundRacers) => {
 //         res.render('edit.ejs', {
