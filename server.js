@@ -48,8 +48,12 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
 //___________________
 // Routes
+// welcome page
+app.get('/', (req, res) => {
+    res.render('welcome.ejs')
+     })
 
-// seed route
+     // seed route
 app.get('/seed', (req, res) => {
     Track.create(Data, (err, data ) => {
         res.redirect('/racers')
@@ -64,10 +68,6 @@ app.delete('/racers/:id', (req, res) => {
     // res.send('deleting...')
 })
 
-// welcome page
-app.get('/', (req, res) => {
-    res.render('welcome.ejs')
-     })
     
  // edit route 
 app.get('/racers/:id/edit', (req, res) => {
