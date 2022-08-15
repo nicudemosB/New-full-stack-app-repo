@@ -50,26 +50,23 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 // Routes
 // welcome page
 
-app.get('/', (req, res) => {
-    res.render('welcome.ejs')
-     })
-     // seed route
+// seed route
 app.get('/seed', (req, res) => {
-        Track.create(Data, (err, data ) => {
-                res.redirect('/racers')
-                console.log('Added track data successfully');
-            })
-        })
-        // delete route
-        app.delete('/racers/:id', (req, res) => {
-                Track.findByIdAndRemove(req.params.id, (err, racers) => {
-                        res.redirect('/racers')
-                    })
-                    // res.send('deleting...')
-                })
-                
-                
-                 // edit route 
+    Track.create(Data, (err, data ) => {
+        res.redirect('/racers')
+        console.log('Added track data successfully');
+    })
+})
+// delete route
+app.delete('/racers/:id', (req, res) => {
+    Track.findByIdAndRemove(req.params.id, (err, racers) => {
+        res.redirect('/racers')
+    })
+    // res.send('deleting...')
+})
+
+
+// edit route 
 app.get('/racers/:id/edit', (req, res) => {
     Track.findById(req.params.id, (err, foundRacers) => {
         res.render('edit.ejs', {
@@ -98,14 +95,14 @@ app.get('/racers', (req, res) => {
 // new route 
 app.get('/racers/new', (req, res) => {
     res.render('new.ejs')
-    })
-    
- // create route 
+})
+
+// create route 
 app.post('/racers', (req, res) => {
     Track.create (req.body, (err, createdRacers) => {
         res.redirect('/racers')
     })
-    })
+})
 // show route
 app.get('/racers/show/:id' ,(req, res) => {
     Track.findById(req.params.id, (err, editRacer) => {
@@ -116,7 +113,13 @@ app.get('/racers/show/:id' ,(req, res) => {
         
     })
 })
+// app.get('/', (req, res) => {
+//     res.render('welcome.ejs')
+//      })
 
+app.get('/' , (req, res) => {
+    res.send('Hello World!');
+});
 // 
 
 
@@ -128,7 +131,7 @@ app.get('/racers/show/:id' ,(req, res) => {
                             //___________________
                             //Listener
                             //___________________
-                            app.listen(3000, () => 
+                            app.listen(process.env.PORT || 3000, () => 
                             console.log( 'Listening on port:', 3000));
                             
                             
