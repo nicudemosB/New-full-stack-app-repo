@@ -49,23 +49,67 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 //___________________
 // Routes
 
-app.delete('/racers/:id', (req, res) => {
-    Track.findByIdAndRemove(req.params.id, (err, racers) => {
-        res.redirect('/new')
-    })
-    // res.send('deleting...')
-})
-
+// seed route
 app.get('/seed', (req, res) => {
     Track.create(Data, (err, data ) => {
         res.redirect('/racers')
         console.log('Added track data successfully');
     })
 })
+// delete route
+app.delete('/racers/:id', (req, res) => {
+    Track.findByIdAndRemove(req.params.id, (err, racers) => {
+        res.redirect('/racers')
+    })
+    // res.send('deleting...')
+})
 
-app.get('racers/:id/show' ,(req, res) => {
-    Track.findById(req.params.id, (err, editRacer) => {
+// welcome page
+app.get('/', (req, res) => {
+    res.render('welcome.ejs')
+     })
+    
+ // edit route 
+app.get('/racers/:id/edit', (req, res) => {
+    Track.findById(req.params.id, (err, foundRacers) => {
+        res.render('edit.ejs', {
+            racers: foundRacers
+        })
+        
+    })
+})
+// update route
+app.put('/racers/:id', (req, res) => {
+    Track.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updateRacer) => {
+        res.redirect('/racers')
+    })
+})
+// index route
+app.get('/racers', (req, res) => {
+    // grabbing and holding onto data
+    Track.find({}, (err, allRacers) => {
         res.render('show.ejs', {
+            // variable = data
+            racers: allRacers
+        })
+    })
+})
+
+// new route 
+app.get('/racers/new', (req, res) => {
+    res.render('new.ejs')
+    })
+    
+ // create route 
+app.post('/racers', (req, res) => {
+    Track.create (req.body, (err, createdRacers) => {
+        res.redirect('/racers')
+    })
+    })
+// show route
+app.get('/racers/show/:id' ,(req, res) => {
+    Track.findById(req.params.id, (err, editRacer) => {
+        res.render('index.ejs', {
             racers: editRacer  
             
         })
@@ -75,109 +119,10 @@ app.get('racers/:id/show' ,(req, res) => {
 
 // 
 
-app.get('/', (req, res) => {
-   res.render('welcome.ejs')
-    })
 
-    app.get('/racers', (req, res) => {
-        // grabbing and holding onto data
-        Track.find({}, (err, allRacers) => {
-            res.render('show.ejs', {
-                // variable = data
-                racers: allRacers
-            })
-        })
-    })
+ 
 
 
-app.get('/racers/new', (req, res) => {
-    res.render('new.ejs')
-    })
-
-    app.post('/racers/:id', (req, res) => {
-        Track.findById(req.body, (err, editedRacers) => {
-            res.redirect('/racers/show')
-    
-        })
-    })
-
-app.get('/racers/edit', (req, res) => {
-    res.render('edit.ejs')
-})
-
-
-app.get('/racers/:id', (req, res) => {
-    Track.findById({}, (err, editRacer) => {
-        res.render('edit.ejs', {racers: editRacer})
-    })
-    // res.render('edit.ejs')
-})
-
-
-
-app.post('/racers', (req, res) => {
-   Track.create (req.body, (err, createdRacers) => {
-    res.redirect('/racers')
-   })
-})
-
-
-
-
-
-app.get('/racers/:id', (req, res) => {
-    Track.findById(req.params.id, (err,foundRacers) => {
-        res.render('show.ejs', {racers: foundRacers})
-        
-    })
-})
-
-
-app.get('/racers/show', (req,res) => {
-    res.render('show.ejs')
-})
-
-
-app.put('/racers/:id', (req, res) => {
-    Track.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updateRacer) => {
-        res.redirect('/racers/show')
-    })
-})
-
-
-
-// app.post('/racers/show', (req, res) => {
-//     Track.create (req.body, (err, createdRacer) => {
-//         res.redirect('edit.ejs')
-        
-//     })
-// })
-
-// app.put('/racers/:id', (req, res) => {
-    //     Track.findByIdAndUpdate(req.params.id, req.body, {new: true},( err, updateName) => {
-        //         res.redirect('/show')
-        //     })
-        // })
-        
-        // app.get('/racers/show', (req, res) => {
-            //     res.render('show.ejs ')
-            //     Track.find({}, (err, allRacers) => {
-                //         res.render('show.ejs', {racers: allRacers})
-                //     })
-                // })
-                
-                
-                // app.get('/cars/:id', (req, res) => {
-                    //     Track.findById(req.params.id, (err, foundRacer) => {
-                        //         res.render('show.ejs', {racers:foundRacer})
-                        //     })
-                        // })
-                        
-                        // app.get('/racers/:id/edit', (req, res) => {
-                        //     Track.findById(req.params.id, (err, editTrack) => {
-                        //         res.render('edit.ejs', {racers: editTrack})
-                        //     })
-                        // })
                         //___________________
                         //localhost:3000
                         //localhost:3000

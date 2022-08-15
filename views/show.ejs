@@ -16,14 +16,14 @@
         <div class="container-sm">
             <% for(let i = 0; i < racers.length; i++){ %>
                 <ul>
-                    <li> Name: <%=racers[i].name%></li>
+                    <li> Name:<a href="/racers/show/<%=racers[i].id%>"><%=racers[i].name%></a></li>
                     <li> Vehicle: <%=racers[i].make%> <%=racers[i].model%></li>
                     <li> Time slot: <%=racers[i].timeSlot%></li>
-                    <form action="/racers/show<%=racers[i].id%>?/show=DELETE" method="POST">
+                    <form action="/racers/<%=racers[i].id%>?_method=DELETE" method="POST">
                         <input type="submit" value="DELETE"/>
-                        <input type="submit" value="Edit Info"/>
                     </form>
-                    
+                    <!-- brings to edit -->
+                    <a href="/racers/<%=racers[i].id%>/edit"><button type="button">Edit Info</button></a>
                     
 
                 </ul>
