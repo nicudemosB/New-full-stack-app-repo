@@ -113,13 +113,13 @@ app.get('/racers/show/:id' ,(req, res) => {
         
     })
 })
-// app.get('/', (req, res) => {
-//     res.render('welcome.ejs')
-//      })
+app.get('/', (req, res) => {
+    res.render('welcome.ejs')
+     })
 
-app.get('/' , (req, res) => {
-    res.send('Hello World!');
-});
+// app.get('/' , (req, res) => {
+//     res.send('Hello World!');
+// });
 // 
 
 
