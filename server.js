@@ -48,25 +48,82 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
 //___________________
 // Routes
-// Track.create(Data, (err, data ) => {
-//     console.log('Added track data successfully');
-// })
+
+app.delete('/racers/:id', (req, res) => {
+    Track.findByIdAndRemove(req.params.id, (err, racers) => {
+        res.redirect('/new')
+    })
+    // res.send('deleting...')
+})
+
+app.get('/seed', (req, res) => {
+    Track.create(Data, (err, data ) => {
+        res.redirect('/racers')
+        console.log('Added track data successfully');
+    })
+})
+
+app.get('racers/:id/show' ,(req, res) => {
+    Track.findById(req.params.id, (err, editRacer) => {
+        res.render('show.ejs', {
+            racers: editRacer  
+            
+        })
+        
+    })
+})
+
 // 
 
-app.get('/racers', (req, res) => {
-    Track.find({}, (err, allRacers) => {
-        res.render('index.ejs', {cars: allRacers});
-    // res.send('track day')
+app.get('/', (req, res) => {
+   res.render('welcome.ejs')
     })
-});
+
+    app.get('/racers', (req, res) => {
+        // grabbing and holding onto data
+        Track.find({}, (err, allRacers) => {
+            res.render('show.ejs', {
+                // variable = data
+                racers: allRacers
+            })
+        })
+    })
+
 
 app.get('/racers/new', (req, res) => {
     res.render('new.ejs')
-})
+    })
+
+    app.post('/racers/:id', (req, res) => {
+        Track.findById(req.body, (err, editedRacers) => {
+            res.redirect('/racers/show')
+    
+        })
+    })
 
 app.get('/racers/edit', (req, res) => {
     res.render('edit.ejs')
 })
+
+
+app.get('/racers/:id', (req, res) => {
+    Track.findById({}, (err, editRacer) => {
+        res.render('edit.ejs', {racers: editRacer})
+    })
+    // res.render('edit.ejs')
+})
+
+
+
+app.post('/racers', (req, res) => {
+   Track.create (req.body, (err, createdRacers) => {
+    res.redirect('/racers')
+   })
+})
+
+
+
+
 
 app.get('/racers/:id', (req, res) => {
     Track.findById(req.params.id, (err,foundRacers) => {
@@ -80,50 +137,59 @@ app.get('/racers/show', (req,res) => {
     res.render('show.ejs')
 })
 
-app.post('/racers/show', (req, res) => {
-    Track.create (req.body, (err, createdRacer) => {
-        res.redirect('edit.ejs')
 
+app.put('/racers/:id', (req, res) => {
+    Track.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updateRacer) => {
+        res.redirect('/racers/show')
     })
 })
 
+
+
+// app.post('/racers/show', (req, res) => {
+//     Track.create (req.body, (err, createdRacer) => {
+//         res.redirect('edit.ejs')
+        
+//     })
+// })
+
 // app.put('/racers/:id', (req, res) => {
-//     Track.findByIdAndUpdate(req.params.id, req.body, {new: true},( err, updateName) => {
-//         res.redirect('/show')
-//     })
-// })
-
-// app.get('/racers/show', (req, res) => {
-//     res.render('show.ejs ')
-//     Track.find({}, (err, allRacers) => {
-//         res.render('show.ejs', {racers: allRacers})
-//     })
-// })
-
-
-// app.get('/cars/:id', (req, res) => {
-//     Track.findById(req.params.id, (err, foundRacer) => {
-//         res.render('show.ejs', {racers:foundRacer})
-//     })
-// })
-
-// app.get('/racers/:id/edit', (req, red) => {
-//     Track.findById(req.params.id, (err, editTrack) => {
-//         res.render('edit.ejs', {racers: editTrack})
-//     })
-// })
-//___________________
-//localhost:3000
-//localhost:3000
-// app.get('/' , (req, res) => {
-//     res.send('Hello World!');
-//   });
-//___________________
-//Listener
-//___________________
-app.listen(3000, () => 
-    console.log( 'Listening on port:', 3000));
-
-    // mongoose.connect('mongodb://127.0.0.1:27017/trackDay', () => {
-    //     console.log('connection to mongodb established');
-    // })
+    //     Track.findByIdAndUpdate(req.params.id, req.body, {new: true},( err, updateName) => {
+        //         res.redirect('/show')
+        //     })
+        // })
+        
+        // app.get('/racers/show', (req, res) => {
+            //     res.render('show.ejs ')
+            //     Track.find({}, (err, allRacers) => {
+                //         res.render('show.ejs', {racers: allRacers})
+                //     })
+                // })
+                
+                
+                // app.get('/cars/:id', (req, res) => {
+                    //     Track.findById(req.params.id, (err, foundRacer) => {
+                        //         res.render('show.ejs', {racers:foundRacer})
+                        //     })
+                        // })
+                        
+                        // app.get('/racers/:id/edit', (req, res) => {
+                        //     Track.findById(req.params.id, (err, editTrack) => {
+                        //         res.render('edit.ejs', {racers: editTrack})
+                        //     })
+                        // })
+                        //___________________
+                        //localhost:3000
+                        //localhost:3000
+                        // app.get('/' , (req, res) => {
+                            //     res.send('Hello World!');
+                            //   });
+                            //___________________
+                            //Listener
+                            //___________________
+                            app.listen(3000, () => 
+                            console.log( 'Listening on port:', 3000));
+                            
+                            // mongoose.connect('mongodb://127.0.0.1:27017/trackDay', () => {
+                                //     console.log('connection to mongodb established');
+                                // })
