@@ -124,17 +124,11 @@ app.get('/', (req, res) => {
 
 
                         //___________________
-                        //localhost:3000
-                        //localhost:3000
-                        // app.get('/' , (req, res) => {
-                            //     res.send('Hello World!');
-                            //   });
+                       
                             //___________________
                             //Listener
                             //___________________
                             app.listen(3000, () => 
                             console.log( 'Listening on port:', 3000));
                             
-                            // mongoose.connect('mongodb://127.0.0.1:27017/trackDay', () => {
-                                //     console.log('connection to mongodb established');
-                                // })
+                            
