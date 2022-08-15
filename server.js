@@ -51,7 +51,7 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 // welcome page
 
 app.get('/', (req, res) => {
-    res.send('welcome.ejs')
+    res.render('welcome.ejs')
      })
      // seed route
 app.get('/seed', (req, res) => {
