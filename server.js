@@ -117,6 +117,10 @@ app.get('/', (req, res) => {
     res.render('welcome.ejs')
      })
 
+app.get('/racers/last', (req, res) => {
+    res.render('last.ejs')
+})
+
 // app.get('/' , (req, res) => {
 //     res.send('Hello World!');
 // });
@@ -133,5 +137,5 @@ app.get('/', (req, res) => {
                             //___________________
                             app.listen(process.env.PORT || 3000, () => 
                             console.log( 'Listening on port:', 3000));
-                               
+
                             

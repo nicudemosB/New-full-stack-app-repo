@@ -12,22 +12,23 @@
     <body style="background-color: black;">
         <h1 style="color: white">Contestants</h1>
         <%racers%>
-        <a href="/racers/new">Click here to sign up</a>
+        <a href="/racers/new"><button type="button" class="btn btn-success">Click here to sign up</button></a>
         <div class="container-sm">
             <% for(let i = 0; i < racers.length; i++){ %>
-                <ul>
+                <ul  class="display-5" style="color: #efecea;">
                     <li> Name:<a href="/racers/show/<%=racers[i].id%>"><%=racers[i].name%></a></li>
                     <li> Vehicle: <%=racers[i].make%> <%=racers[i].model%></li>
                     <li> Time slot: <%=racers[i].timeSlot%></li>
                     <form action="/racers/<%=racers[i].id%>?_method=DELETE" method="POST">
-                        <input type="submit" value="DELETE"/>
+                         <input type="submit" class="btn btn-danger" value="DELETE">
                     </form>
                     <!-- brings to edit -->
-                    <a href="/racers/<%=racers[i].id%>/edit"><button type="button">Edit Info</button></a>
+                    <a href="/racers/<%=racers[i].id%>/edit"><button type="button" class="btn btn-warning" >Edit Info</button></a>
                     
 
                 </ul>
             <% } %>
+            <a href="/racers/last"><button type="button" class="btn btn-primary">Proceed to Race</button></a>
         
 
         
