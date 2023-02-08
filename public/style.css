@@ -1,0 +1,24 @@
+.tsukuba {
+    display:flexbox;
+    align-items: flex-end;
+    float: right;
+}
+
+@media screen and (min-width:900px) {
+    .tsukuba {
+        padding: 1rem 3rem
+    }
+}
+
+.tsukuba h2 {
+    color: white;
+    text-align: center;
+    border: solid white;
+    border-radius: 5px;
+}
+
+.contestants {
+    text-align: center;
+    text-decoration: underline;
+    padding: 5, 5, 5, 5;
+}
